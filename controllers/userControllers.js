@@ -18,7 +18,7 @@ export const afficherUtilisateurs = async (req, res) => {
 // Affiche un utilisateur [OK]
 
 export const afficherUtilisateur = async (req, res) => {
-  const user = await UtilisateurModel.find({ _id: req.params.id });
+  const user = await UtilisateurModel.findOne({ _id: req.params.id }).exec()
   res.send(user);
 };
 
