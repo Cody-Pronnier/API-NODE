@@ -4,13 +4,20 @@ import routes from "./routes/routes.js";
 import privateRoutes from "./routes/privateRoutes.js";
 import passport from "passport";
 import "./auth/auth.js";
-
+import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
 
 const PORT = process.env.PORT || 3000;
 
+const corsOptions = {
+  origin: '*',
+  credentials: true,
+  optionSuccessStatus: 200,
+};
+
 const app = express();
+app.use(cors(corsOptions));
 
 app.use(express.json());
 
