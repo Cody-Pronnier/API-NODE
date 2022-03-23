@@ -45,3 +45,12 @@ export const supprimerUtilisateur = async (req, res) => {
   }
   res.status(200).send();
 };
+
+export const allRessourceDeUtilisateur = async (req, res) => {
+  const user = await UtilisateurModel.find({ _id: req.params.id }).populate('ressources');
+  if (!user) {
+    res.status(404).send("Cet utilisateur n'existe pas.");
+  }
+  console.log(user);
+  res.send(user);
+};

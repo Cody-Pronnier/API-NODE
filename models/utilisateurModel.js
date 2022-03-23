@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
+const Schema = mongoose.Schema;
 
-const UtilisateurSchema = new mongoose.Schema({
+const UtilisateurSchema = new Schema({
   nom: {
     type: String,
     trim: true,
@@ -36,6 +37,10 @@ const UtilisateurSchema = new mongoose.Schema({
     data: Buffer,
     contentType: String,
   },
+  ressources: [{
+    type: Schema.Types.ObjectId,
+    ref: "Ressource"
+  }]
 });
 
 // Pré hash - avant save bdd [OK]

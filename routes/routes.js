@@ -5,7 +5,15 @@ import {
   afficherUtilisateur,
   modifierUtilisateur,
   supprimerUtilisateur,
+  allRessourceDeUtilisateur,
 } from "./../controllers/userControllers.js";
+import {
+  ajoutRessource,
+  afficherRessources,
+  afficherressource,
+  modifierRessource,
+  supprimerRessource,
+} from "./../controllers/ressourceController.js";
 import { catchErrors } from "../helpers.js";
 import passport from "passport";
 import jwt from "jsonwebtoken";
@@ -19,6 +27,15 @@ router.get("/api/utilisateur", catchErrors(afficherUtilisateurs));
 router.get("/api/utilisateur/:id", catchErrors(afficherUtilisateur));
 router.patch("/api/utilisateur/:id", catchErrors(modifierUtilisateur));
 router.delete("/api/utilisateur/:id", catchErrors(supprimerUtilisateur));
+router.get("/api/utilisateur/:id/ressources", catchErrors(allRessourceDeUtilisateur));
+
+// Routes pour ressource
+
+router.post("/api/ressource", catchErrors(ajoutRessource));
+router.get("/api/ressource", catchErrors(afficherRessources));
+router.get("/api/ressource/:id", catchErrors(afficherressource));
+router.patch("/api/ressource/:id", catchErrors(modifierRessource));
+router.delete("/api/ressource/:id", catchErrors(supprimerRessource));
 
 // Routes pour authentification
 
