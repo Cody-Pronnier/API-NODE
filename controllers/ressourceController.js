@@ -1,9 +1,10 @@
 import RessourceModel from "../models/RessourceModel.js";
+import mongoose from "mongoose";
 
 // Créer un ressource [OK]
 
 export const ajoutRessource = async (req, res) => {
-  const ressource = new RessourceModel(req.body);
+  const ressource = new RessourceModel({_id: new mongoose.Types.ObjectId(), ...req.body});
   await ressource.save();
   res.send(ressource);
 };
@@ -44,4 +45,13 @@ export const supprimerRessource = async (req, res) => {
     res.status(404).send("Cet ressource n'existe pas.");
   }
   res.status(200).send();
+};
+
+export const allCommentairesDeUtilisateur = async (req, res) => {
+  const ressource = await RessourceModel.find({ _id: req.params.id }).populate('commentaires');
+  if (!ressource) {
+    res.status(404).send("Cette ressource n'existe pas.");
+  }
+  console.log(ressource);
+  res.send(ressource);
 };

@@ -7,11 +7,13 @@ const UtilisateurSchema = new Schema({
     type: String,
     trim: true,
     lowercase: true,
+    required: true
   },
   prenom: {
     type: String,
     trim: true,
     lowercase: true,
+    required: true,
   },
   mail: {
     type: String,
@@ -37,10 +39,10 @@ const UtilisateurSchema = new Schema({
     type : String,                //This Schema should be mentioned as a string
     required: false
   },
-  ressources: [{
+  owner: {
     type: Schema.Types.ObjectId,
-    ref: "Ressource"
-  }]
+    ref: "Role"
+  },
 });
 
 // Pré hash - avant save bdd [OK]
