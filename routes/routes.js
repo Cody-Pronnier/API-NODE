@@ -13,10 +13,14 @@ import {
   afficherressource,
   modifierRessource,
   supprimerRessource,
+  allCommentairesDeUtilisateur
 } from "./../controllers/ressourceController.js";
+
 import { catchErrors } from "../helpers.js";
 import passport from "passport";
 import jwt from "jsonwebtoken";
+import { afficherCommentaire, afficherCommentaires, ajoutCommentaire, modifierCommentaire, supprimerCommentaire } from "../controllers/commentaireController.js";
+import { afficherRole, afficherRoles, ajoutRole, modifierRole, supprimerRole } from "../controllers/roleController.js";
 
 const router = express.Router();
 
@@ -36,7 +40,22 @@ router.get("/api/ressource", catchErrors(afficherRessources));
 router.get("/api/ressource/:id", catchErrors(afficherressource));
 router.patch("/api/ressource/:id", catchErrors(modifierRessource));
 router.delete("/api/ressource/:id", catchErrors(supprimerRessource));
+router.get("api/ressource/:id/commentaires", catchErrors(allCommentairesDeUtilisateur))
+// Routes pour ressource
 
+router.post("/api/commentaire", catchErrors(ajoutCommentaire));
+router.get("/api/commentaire", catchErrors(afficherCommentaires));
+router.get("/api/commentaire/:id", catchErrors(afficherCommentaire));
+router.patch("/api/commentaire/:id", catchErrors(modifierCommentaire));
+router.delete("/api/commentaire/:id", catchErrors(supprimerCommentaire));
+
+// Routes pour role
+
+router.post("/api/role", catchErrors(ajoutRole));
+router.get("/api/role", catchErrors(afficherRoles));
+router.get("/api/role/:id", catchErrors(afficherRole));
+router.patch("/api/role/:id", catchErrors(modifierRole));
+router.delete("/api/role/:id", catchErrors(supprimerRole));
 // Routes pour authentification
 
 router.post(
