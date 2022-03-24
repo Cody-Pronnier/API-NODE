@@ -19,7 +19,11 @@ const RessourceSchema = new Schema({
   owner: {
     type: Schema.Types.ObjectId,
     ref: "Utilisateur"
-  }
+  },
+  commentaires: [{
+    type: Schema.Types.ObjectId,
+    ref: "Commentaire"
+  }]
 });
 
 const RessourceModel = mongoose.model("Ressource", RessourceSchema);
