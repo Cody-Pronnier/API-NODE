@@ -6,6 +6,7 @@ import passport from "passport";
 import "./auth/auth.js";
 import cors from "cors";
 import dotenv from "dotenv";
+import bodyParser from'body-parser';
 dotenv.config();
 
 const PORT = process.env.PORT || 3000;
@@ -18,7 +19,8 @@ const corsOptions = {
 
 const app = express();
 app.use(cors(corsOptions));
-
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(express.json());
 
 app.set("view engine", "ejs");

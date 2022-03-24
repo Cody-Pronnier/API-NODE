@@ -34,8 +34,8 @@ const UtilisateurSchema = new Schema({
     default: false,
   },
   image: {
-    data: Buffer,
-    contentType: String,
+    type : String,                //This Schema should be mentioned as a string
+    required: false
   },
   ressources: [{
     type: Schema.Types.ObjectId,
