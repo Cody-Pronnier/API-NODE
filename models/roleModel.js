@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const RoleSchema = new Schema({
+    _id : Schema.Types.ObjectId,
     nom: {
         type: String,
         trim: true,

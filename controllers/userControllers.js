@@ -1,6 +1,6 @@
 import UtilisateurModel from "../models/utilisateurModel.js";
 
-// Créer un utilisateur [OK][MANQUE JWT ET BCRYPT]
+// Créer un utilisateur [OK]
 
 export const ajoutUtilisateur = async (req, res) => {
   const user = new UtilisateurModel(req.body);
@@ -47,10 +47,9 @@ export const supprimerUtilisateur = async (req, res) => {
 };
 
 export const allRessourceDeUtilisateur = async (req, res) => {
-  const user = await UtilisateurModel.find({ _id: req.params.id }).populate('ressources');
+  const user = await UtilisateurModel.findById({ _id: req.params.id }).populate('ressources');
   if (!user) {
     res.status(404).send("Cet utilisateur n'existe pas.");
   }
-  console.log(user);
   res.send(user);
 };

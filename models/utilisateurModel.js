@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 const Schema = mongoose.Schema;
 
 const UtilisateurSchema = new Schema({
+  _id : Schema.Types.ObjectId,
   nom: {
     type: String,
     trim: true,
@@ -39,6 +40,10 @@ const UtilisateurSchema = new Schema({
     data: Buffer,
     contentType: String,
   },
+  ressources: [{
+    type: Schema.Types.ObjectId,
+    ref: "Ressource"
+  }],
   owner: {
     type: Schema.Types.ObjectId,
     ref: "Role"
