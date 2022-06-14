@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const RessourceSchema = new Schema({
-  _id : Schema.Types.ObjectId,
   texte: {
     type: String,
     trim: true,

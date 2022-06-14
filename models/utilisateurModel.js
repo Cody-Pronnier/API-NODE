@@ -3,7 +3,6 @@ import bcrypt from "bcrypt";
 const Schema = mongoose.Schema;
 
 const UtilisateurSchema = new Schema({
-  _id : Schema.Types.ObjectId,
   nom: {
     type: String,
     trim: true,
