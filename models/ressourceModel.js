@@ -5,7 +5,10 @@ const RessourceSchema = new Schema({
   texte: {
     type: String,
     trim: true,
-    lowercase: true,
+  },
+  titre: {
+    type: String,
+    trim: true,
   },
   date_creation: {
     type: Date,
@@ -16,9 +19,10 @@ const RessourceSchema = new Schema({
     data: Buffer,
     contentType: String,
   },
-  owner: {
+  utilisateur: {
     type: Schema.Types.ObjectId,
-    ref: "Utilisateur"
+    ref: "Utilisateur",
+    required: true
   },
   commentaires: [{
     type: Schema.Types.ObjectId,

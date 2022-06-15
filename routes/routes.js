@@ -5,7 +5,7 @@ import {
   afficherUtilisateur,
   modifierUtilisateur,
   supprimerUtilisateur,
-  allRessourceDeUtilisateur,
+  toutesRessourcesDeUtilisateur,
 } from "./../controllers/userControllers.js";
 import {
   ajoutRessource,
@@ -13,7 +13,7 @@ import {
   afficherressource,
   modifierRessource,
   supprimerRessource,
-  allCommentairesDeUtilisateur
+  toutesRessources
 } from "./../controllers/ressourceController.js";
 
 import { catchErrors } from "../helpers.js";
@@ -31,16 +31,15 @@ router.get("/api/utilisateur", catchErrors(afficherUtilisateurs));
 router.get("/api/utilisateur/:id", catchErrors(afficherUtilisateur));
 router.patch("/api/utilisateur/:id", catchErrors(modifierUtilisateur));
 router.delete("/api/utilisateur/:id", catchErrors(supprimerUtilisateur));
-router.get("/api/utilisateur/:id/ressources", catchErrors(allRessourceDeUtilisateur));
+router.get("/api/utilisateur/:id/ressources", catchErrors(toutesRessourcesDeUtilisateur));
 
 // Routes pour ressource
-
 router.post("/api/ressource", catchErrors(ajoutRessource));
 router.get("/api/ressource", catchErrors(afficherRessources));
+router.get("/api/ressource/:id/all", catchErrors(toutesRessources));
 router.get("/api/ressource/:id", catchErrors(afficherressource));
 router.patch("/api/ressource/:id", catchErrors(modifierRessource));
 router.delete("/api/ressource/:id", catchErrors(supprimerRessource));
-router.get("api/ressource/:id/commentaires", catchErrors(allCommentairesDeUtilisateur))
 // Routes pour ressource
 
 router.post("/api/commentaire", catchErrors(ajoutCommentaire));

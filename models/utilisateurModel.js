@@ -15,6 +15,11 @@ const UtilisateurSchema = new Schema({
     lowercase: true,
     required: true,
   },
+  pseudo: {
+    type: String,
+    trim: true,
+    required: true
+  },
   mail: {
     type: String,
     required: true,

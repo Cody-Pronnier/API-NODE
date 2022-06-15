@@ -15,9 +15,15 @@ const CommentaireSchema = new Schema({
     type: Boolean,
     default: false,
   },
-  owner: [{
+  utilisateur: {
     type: Schema.Types.ObjectId,
-    ref: "Ressource"
+    ref: "Utilisateur",
+    required: true
+  },
+  ressource: [{
+    type: Schema.Types.ObjectId,
+    ref: "Ressource",
+    required: true
   }]
 });
 

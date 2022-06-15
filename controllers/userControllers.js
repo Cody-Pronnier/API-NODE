@@ -46,8 +46,10 @@ export const supprimerUtilisateur = async (req, res) => {
   res.status(200).send();
 };
 
-export const allRessourceDeUtilisateur = async (req, res) => {
-  const user = await UtilisateurModel.findById({ _id: req.params.id }).populate('ressources');
+export const toutesRessourcesDeUtilisateur = async (req, res) => {
+  const user = await UtilisateurModel.find({ _id: req.params.id })
+  .populate('ressources');
+  console.log(user);
   if (!user) {
     res.status(404).send("Cet utilisateur n'existe pas.");
   }
