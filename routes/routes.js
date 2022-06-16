@@ -53,7 +53,7 @@ const upload = multer({
 
 // Routes pour utilisateur
 
-router.post("/api/utilisateur", catchErrors(upload.single("image"), ajoutUtilisateur));
+router.post("/api/utilisateur", upload.single("image"), catchErrors(ajoutUtilisateur));
 router.get("/api/utilisateur", catchErrors(afficherUtilisateurs));
 router.get("/api/utilisateur/:id", catchErrors(afficherUtilisateur));
 router.patch("/api/utilisateur/:id", catchErrors(modifierUtilisateur));
