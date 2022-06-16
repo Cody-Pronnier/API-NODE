@@ -23,10 +23,37 @@ import { afficherCommentaire, afficherCommentaires, ajoutCommentaire, modifierCo
 import { afficherRole, afficherRoles, ajoutRole, modifierRole, supprimerRole } from "../controllers/roleController.js";
 
 const router = express.Router();
+const multer = require("multer");
+
+const storage = multer.diskStorage({
+  destination: (requete, file, cb) => {
+    cb(null, "./public/images/")
+  },
+  filename: (requete, file, cb) => {
+    var date = new Date().toLocaleDateString();
+    cb(null, date + "-" + Math.round(Math.random() * 10000) + "-" + file.originalname)
+  }
+});
+const fileFilter = (requete, file, cb) => {
+  if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
+    cb(null, true)
+  } else {
+    cb(new Error("l'image n'est pas acceptée"), false)
+  }
+}
+
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 1024 * 1024 * 5
+  },
+  fileFilter: fileFilter
+})
+
 
 // Routes pour utilisateur
 
-router.post("/api/utilisateur", catchErrors(ajoutUtilisateur));
+router.post("/api/utilisateur", catchErrors(upload.single("image"), ajoutUtilisateur));
 router.get("/api/utilisateur", catchErrors(afficherUtilisateurs));
 router.get("/api/utilisateur/:id", catchErrors(afficherUtilisateur));
 router.patch("/api/utilisateur/:id", catchErrors(modifierUtilisateur));
@@ -80,9 +107,9 @@ router.post("/api/connexion", (req, res, next) => {
         if (error) return next(error);
 
         const body = { _id: utilisateur._id, mail: utilisateur.mail };
-        const token = jwt.sign({utilisateur: body}, 'mfsakp15342679*')
-        
-        res.json({token});
+        const token = jwt.sign({ utilisateur: body }, 'mfsakp15342679*')
+
+        res.json({ token });
       });
     } catch (error) {
       return next(error);

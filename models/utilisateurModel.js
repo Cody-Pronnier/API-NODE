@@ -31,6 +31,9 @@ const UtilisateurSchema = new Schema({
     type: String,
     required: true,
   },
+  nbdabonne: {
+    type: Number
+  },
   date_creation: {
     type: Date,
     required: true,
