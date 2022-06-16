@@ -17,8 +17,10 @@ const UtilisateurSchema = new Schema({
   },
   pseudo: {
     type: String,
-    trim: true,
     required: true
+  },
+  description: {
+    type: String
   },
   mail: {
     type: String,
@@ -32,7 +34,12 @@ const UtilisateurSchema = new Schema({
     required: true,
   },
   nbdabonne: {
-    type: Number
+    type: Number,
+    default: 0
+  },
+  nbdabonnement: {
+    type: Number,
+    default: 0
   },
   date_creation: {
     type: Date,
@@ -51,9 +58,10 @@ const UtilisateurSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Ressource"
   }],
-  owner: {
+  role: {
     type: Schema.Types.ObjectId,
-    ref: "Role"
+    ref: "Role",
+    default: "623b03b7b994734c2c18628f"
   },
 });
 
