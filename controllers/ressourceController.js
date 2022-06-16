@@ -1,5 +1,6 @@
 import RessourceModel from "../models/RessourceModel.js";
 import mongoose from "mongoose";
+import RessourceReactionModel from "../models/RessourceReactionModel.js";
 
 // Créer un ressource [OK]
 
@@ -78,3 +79,25 @@ export const switchRessource = async (req, res) => {
   await ressource.save();
   res.send(ressource);
 };
+
+// Ajout ou Suppression d'un j'aime
+
+export const reactionRessource = async (req, res) => {
+  const ressource = await RessourceModel.findByIdAndUpdate(
+    req.params.id,
+    req.body
+  );
+
+const reaction = await RessourceReactionModel.findByIdAndUpdate(
+  ressource._id
+);
+console.log(reaction);
+ressource.nb_reaction ++;
+  if (!ressource) {
+    res.status(404).send("Ce ressource n'existe pas.");
+  }
+
+  await ressource.save();
+  res.send(ressource);
+};
+

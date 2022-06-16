@@ -15,6 +15,10 @@ const RessourceSchema = new Schema({
     required: true,
     default: Date.now,
   },
+  nb_reaction: {
+    type: Number,
+    default: 0
+  },
   image: {
     data: Buffer,
     contentType: String,
