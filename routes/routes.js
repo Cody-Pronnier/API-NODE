@@ -14,7 +14,7 @@ import {
   afficherressource,
   modifierRessource,
   supprimerRessource,
-  toutesRessources,
+  ressourcesUtilisateur,
   switchRessource
 } from "./../controllers/ressourceController.js";
 
@@ -87,7 +87,7 @@ router.get(
 // Routes pour ressource
 router.post("/api/ressource", catchErrors(ajoutRessource));
 router.get("/api/ressource", catchErrors(afficherRessources));
-router.get("/api/ressource/:id/all", catchErrors(toutesRessources));
+router.get("/api/ressource/:id/utilisateur", catchErrors(ressourcesUtilisateur));
 router.get("/api/ressource/:id", catchErrors(afficherressource));
 router.patch("/api/ressource/:id", catchErrors(modifierRessource));
 router.patch("/api/ressource/:id/switch", catchErrors(switchRessource));

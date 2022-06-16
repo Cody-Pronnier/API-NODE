@@ -47,7 +47,7 @@ export const supprimerRessource = async (req, res) => {
   res.status(200).send();
 };
 
-export const toutesRessources = async (req, res) => {
+export const ressourcesUtilisateur = async (req, res) => {
   const ressource = await RessourceModel.find({ _id: req.params.id })
   .populate('utilisateur');
   console.log(ressource);
