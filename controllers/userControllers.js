@@ -4,7 +4,6 @@ import UtilisateurModel from "../models/utilisateurModel.js";
 
 export const ajoutUtilisateur = async (req, res) => {
   const user = new UtilisateurModel(req.body);
-  user.image = req.file.path.substring(14);
   await user.save();
   res.send(user);
 };
