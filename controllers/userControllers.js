@@ -56,3 +56,24 @@ export const toutesRessourcesDeUtilisateur = async (req, res) => {
   }
   res.send(user);
 };
+
+
+// switch un compte non valid à valid ou inversement
+
+export const switchCompteUtilisateur = async (req, res) => {
+  const user = await UtilisateurModel.findByIdAndUpdate(
+    req.params.id,
+    req.body
+  );
+  if (!user) {
+    res.status(404).send("Cet utilisateur n'existe pas.");
+  }
+  if(user.compte_actif === true) {
+    user.compte_actif = false;
+  } else {
+    user.compte_actif = true;
+  }
+
+  await user.save();
+  res.send(user);
+};
