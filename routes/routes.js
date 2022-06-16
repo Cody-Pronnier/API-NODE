@@ -15,6 +15,7 @@ import {
   modifierRessource,
   supprimerRessource,
   toutesRessources,
+  switchRessource
 } from "./../controllers/ressourceController.js";
 
 import { catchErrors } from "../helpers.js";
@@ -89,6 +90,7 @@ router.get("/api/ressource", catchErrors(afficherRessources));
 router.get("/api/ressource/:id/all", catchErrors(toutesRessources));
 router.get("/api/ressource/:id", catchErrors(afficherressource));
 router.patch("/api/ressource/:id", catchErrors(modifierRessource));
+router.patch("/api/ressource/:id/switch", catchErrors(switchRessource));
 router.delete("/api/ressource/:id", catchErrors(supprimerRessource));
 // Routes pour ressource
 

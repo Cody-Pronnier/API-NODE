@@ -19,6 +19,10 @@ const RessourceSchema = new Schema({
     data: Buffer,
     contentType: String,
   },
+  validation: {
+    type: Boolean,
+    default: true,
+  },
   utilisateur: {
     type: Schema.Types.ObjectId,
     ref: "Utilisateur",

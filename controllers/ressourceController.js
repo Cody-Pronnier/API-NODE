@@ -56,3 +56,24 @@ export const toutesRessources = async (req, res) => {
   }
   res.send(ressource);
 };
+
+
+// switch une ressource non valid à valid ou inversement
+
+export const switchRessource = async (req, res) => {
+  const ressource = await RessourceModel.findByIdAndUpdate(
+    req.params.id,
+    req.body
+  );
+  if (!ressource) {
+    res.status(404).send("Ce ressource n'existe pas.");
+  }
+  if(ressource.validation === true) {
+    ressource.validation = false;
+  } else {
+    ressource.validation = true;
+  }
+
+  await ressource.save();
+  res.send(ressource);
+};
