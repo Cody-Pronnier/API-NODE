@@ -1,6 +1,8 @@
 import RessourceModel from "../models/RessourceModel.js";
 import mongoose from "mongoose";
 import RessourceReactionModel from "../models/RessourceReactionModel.js";
+import express from "express";
+
 
 // Créer un ressource [OK]
 
@@ -63,10 +65,10 @@ export const ressourcesUtilisateur = async (req, res) => {
 // switch une ressource non valid à valid ou inversement
 
 export const switchRessource = async (req, res) => {
-  const ressource = await RessourceModel.findByIdAndUpdate(
+  const ressource = await RessourceModel.find(
     req.params.id,
     req.body
-  );
+  )
   if (!ressource) {
     res.status(404).send("Ce ressource n'existe pas.");
   }
@@ -86,18 +88,22 @@ export const reactionRessource = async (req, res) => {
   const ressource = await RessourceModel.findByIdAndUpdate(
     req.params.id,
     req.body
-  );
+  )
+  .populate('utilisateur');
 
-const reaction = await RessourceReactionModel.findByIdAndUpdate(
-  ressource._id
-);
-console.log(reaction);
-ressource.nb_reaction ++;
+const reaction = null;
+
   if (!ressource) {
     res.status(404).send("Ce ressource n'existe pas.");
   }
-
-  await ressource.save();
-  res.send(ressource);
+  if (!reaction) {
+    const reaction2 = new RessourceReactionModel({ _id: new mongoose.Types.ObjectId()});
+    reaction2.ressource = ressource._id;
+    reaction2.utilisateur = ressource._id;
+    await reaction2.save();
+    res.send(reaction2);
+    ressource.nb_reaction ++;
+  }
+  res.send("TEST");
 };
 
