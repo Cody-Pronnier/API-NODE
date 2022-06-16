@@ -21,9 +21,9 @@ import passport from "passport";
 import jwt from "jsonwebtoken";
 import { afficherCommentaire, afficherCommentaires, ajoutCommentaire, modifierCommentaire, supprimerCommentaire } from "../controllers/commentaireController.js";
 import { afficherRole, afficherRoles, ajoutRole, modifierRole, supprimerRole } from "../controllers/roleController.js";
+import multer from 'multer';
 
 const router = express.Router();
-const multer = require("multer");
 
 const storage = multer.diskStorage({
   destination: (requete, file, cb) => {
