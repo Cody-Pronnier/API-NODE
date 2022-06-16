@@ -3,7 +3,8 @@ import UtilisateurModel from "../models/utilisateurModel.js";
 // Créer un utilisateur [OK]
 
 export const ajoutUtilisateur = async (req, res) => {
-  const user = new UtilisateurModel(req.body);
+  const user = new UtilisateurModel(req.body, user.image = requete.file.path.substring(14));
+
   await user.save();
   res.send(user);
 };
@@ -48,7 +49,7 @@ export const supprimerUtilisateur = async (req, res) => {
 
 export const toutesRessourcesDeUtilisateur = async (req, res) => {
   const user = await UtilisateurModel.find({ _id: req.params.id })
-  .populate('ressources');
+    .populate('ressources');
   console.log(user);
   if (!user) {
     res.status(404).send("Cet utilisateur n'existe pas.");
