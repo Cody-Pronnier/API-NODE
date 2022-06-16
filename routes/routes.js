@@ -6,7 +6,7 @@ import {
   modifierUtilisateur,
   supprimerUtilisateur,
   toutesRessourcesDeUtilisateur,
-  switchCompteUtilisateur
+  switchCompteUtilisateur,
 } from "./../controllers/userControllers.js";
 import {
   ajoutRessource,
@@ -14,43 +14,58 @@ import {
   afficherressource,
   modifierRessource,
   supprimerRessource,
-  toutesRessources
+  toutesRessources,
 } from "./../controllers/ressourceController.js";
 
 import { catchErrors } from "../helpers.js";
 import passport from "passport";
 import jwt from "jsonwebtoken";
-import { afficherCommentaire, afficherCommentaires, ajoutCommentaire, modifierCommentaire, supprimerCommentaire } from "../controllers/commentaireController.js";
-import { afficherRole, afficherRoles, ajoutRole, modifierRole, supprimerRole } from "../controllers/roleController.js";
-import multer from 'multer';
+import {
+  afficherCommentaire,
+  afficherCommentaires,
+  ajoutCommentaire,
+  modifierCommentaire,
+  supprimerCommentaire,
+  switchCommentaire,
+} from "../controllers/commentaireController.js";
+import {
+  afficherRole,
+  afficherRoles,
+  ajoutRole,
+  modifierRole,
+  supprimerRole,
+} from "../controllers/roleController.js";
+import multer from "multer";
 
 const router = express.Router();
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "./public/images/")
+    cb(null, "./public/images/");
   },
   filename: (req, file, cb) => {
     var date = new Date().toLocaleDateString();
-    cb(null, date + "-" + Math.round(Math.random() * 10000) + "-" + file.originalname)
-  }
+    cb(
+      null,
+      date + "-" + Math.round(Math.random() * 10000) + "-" + file.originalname
+    );
+  },
 });
 const fileFilter = (req, file, cb) => {
   if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
-    cb(null, true)
+    cb(null, true);
   } else {
-    cb(new Error("l'image n'est pas acceptée"), false)
+    cb(new Error("l'image n'est pas acceptée"), false);
   }
-}
+};
 
 const upload = multer({
   storage: storage,
   limits: {
-    fileSize: 1024 * 1024 * 5
+    fileSize: 1024 * 1024 * 5,
   },
-  fileFilter: fileFilter
-})
-
+  fileFilter: fileFilter,
+});
 
 // Routes pour utilisateur
 
@@ -58,9 +73,15 @@ router.post("/api/utilisateur", catchErrors(ajoutUtilisateur));
 router.get("/api/utilisateur", catchErrors(afficherUtilisateurs));
 router.get("/api/utilisateur/:id", catchErrors(afficherUtilisateur));
 router.patch("/api/utilisateur/:id", catchErrors(modifierUtilisateur));
-router.patch("/api/utilisateur/:id/switch", catchErrors(switchCompteUtilisateur));
+router.patch(
+  "/api/utilisateur/:id/switch",
+  catchErrors(switchCompteUtilisateur)
+);
 router.delete("/api/utilisateur/:id", catchErrors(supprimerUtilisateur));
-router.get("/api/utilisateur/:id/ressources", catchErrors(toutesRessourcesDeUtilisateur));
+router.get(
+  "/api/utilisateur/:id/ressources",
+  catchErrors(toutesRessourcesDeUtilisateur)
+);
 
 // Routes pour ressource
 router.post("/api/ressource", catchErrors(ajoutRessource));
@@ -75,6 +96,7 @@ router.post("/api/commentaire", catchErrors(ajoutCommentaire));
 router.get("/api/commentaire", catchErrors(afficherCommentaires));
 router.get("/api/commentaire/:id", catchErrors(afficherCommentaire));
 router.patch("/api/commentaire/:id", catchErrors(modifierCommentaire));
+router.patch("/api/commentaire/:id/switch", catchErrors(switchCommentaire));
 router.delete("/api/commentaire/:id", catchErrors(supprimerCommentaire));
 
 // Routes pour role
@@ -109,7 +131,7 @@ router.post("/api/connexion", (req, res, next) => {
         if (error) return next(error);
 
         const body = { _id: utilisateur._id, mail: utilisateur.mail };
-        const token = jwt.sign({ utilisateur: body }, 'mfsakp15342679*')
+        const token = jwt.sign({ utilisateur: body }, "mfsakp15342679*");
 
         res.json({ token });
       });

@@ -45,3 +45,24 @@ export const supprimerCommentaire = async (req, res) => {
   }
   res.status(200).send();
 };
+
+
+// switch un commentaire non valid à valid ou inversement
+
+export const switchCommentaire = async (req, res) => {
+  const commentaire = await CommentaireModel.findByIdAndUpdate(
+    req.params.id,
+    req.body
+  );
+  if (!commentaire) {
+    res.status(404).send("Ce commentaire n'existe pas.");
+  }
+  if(commentaire.validation === true) {
+    commentaire.validation = false;
+  } else {
+    commentaire.validation = true;
+  }
+
+  await commentaire.save();
+  res.send(commentaire);
+};
