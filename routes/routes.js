@@ -139,7 +139,7 @@ router.post("/api/connexion", (req, res, next) => {
         const body = { _id: utilisateur._id, mail: utilisateur.mail };
         const token = jwt.sign({ utilisateur: body }, "mfsakp15342679*");
 
-        res.json({ token });
+        res.json({ token, body });
       });
     } catch (error) {
       return next(error);
