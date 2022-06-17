@@ -7,6 +7,7 @@ import {
   supprimerUtilisateur,
   toutesRessourcesDeUtilisateur,
   switchCompteUtilisateur,
+  follow
 } from "./../controllers/userControllers.js";
 import {
   ajoutRessource,
@@ -75,6 +76,7 @@ router.post("/api/utilisateur", catchErrors(ajoutUtilisateur));
 router.get("/api/utilisateur", catchErrors(afficherUtilisateurs));
 router.get("/api/utilisateur/:id", catchErrors(afficherUtilisateur));
 router.patch("/api/utilisateur/:id", catchErrors(modifierUtilisateur));
+router.patch("/api/utilisateur/:id/follow", catchErrors(follow));
 router.patch(
   "/api/utilisateur/:id/switch",
   catchErrors(switchCompteUtilisateur)

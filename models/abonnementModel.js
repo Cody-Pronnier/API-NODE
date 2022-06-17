@@ -1,16 +1,16 @@
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
-const AbonneSchema = new Schema({
+const AbonnementSchema = new Schema({
   utilisateur: {
     type: Schema.Types.ObjectId,
     ref: "Utilisateur"
   },
-  abonne: [{
+  abonnement: [{
     type: Schema.Types.ObjectId,
     ref: "Utilisateur"
   }]
 });
 
-const AbonneModel = mongoose.model("Abonne", AbonneSchema);
-export default AbonneModel;
+const AbonnementModel = mongoose.model("Abonnement", AbonnementSchema);
+export default AbonnementModel;

@@ -96,16 +96,15 @@ export const reactionRessource = async (req, res) => {
     if (idexistant == null || idexistant == '') {
       const jaime = new RessourceReactionModel({ _id: new mongoose.Types.ObjectId(),ressource: ressource._id, utilisateur: '62a9dc084dc6033c7098a69a'  });
       await jaime.save();
-      res.send(jaime);
       ressource.nb_reaction ++;
       await ressource.save();
-      res.send(ressource);
+      res.send(jaime, ressource);
     } else {
       const jenaimeplus = await RessourceReactionModel.findByIdAndDelete(idexistant);
-      res.status(200).send(jenaimeplus);
+
       ressource.nb_reaction --;
       await ressource.save();
-      res.send(ressource);
+      res.status(200).send(jenaimeplus, ressource);
     }
   }
 };
