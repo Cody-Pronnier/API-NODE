@@ -16,7 +16,7 @@ export const ajoutRessource = async (req, res) => {
 
 export const afficherRessources = async (req, res) => {
   const ressources = await RessourceModel.find({})
-  .populate('utilisateur');
+    .populate('utilisateur');
   res.send(ressources);
 };
 
@@ -53,7 +53,7 @@ export const supprimerRessource = async (req, res) => {
 
 export const ressourcesUtilisateur = async (req, res) => {
   const ressource = await RessourceModel.find({ _id: req.params.id })
-  .populate('utilisateur');
+    .populate('utilisateur');
   console.log(ressource);
   if (!ressource) {
     res.status(404).send("");
@@ -72,7 +72,7 @@ export const switchRessource = async (req, res) => {
   if (!ressource) {
     res.status(404).send("Ce ressource n'existe pas.");
   }
-  if(ressource.validation === true) {
+  if (ressource.validation === true) {
     ressource.validation = false;
   } else {
     ressource.validation = true;
@@ -88,22 +88,25 @@ export const reactionRessource = async (req, res) => {
   const ressource = await RessourceModel.findByIdAndUpdate(
     req.params.id,
     req.body
-  )
-  .populate('utilisateur');
-
-const reaction = null;
-
+  );
   if (!ressource) {
     res.status(404).send("Ce ressource n'existe pas.");
+  } else {
+    var idexistant = await RessourceReactionModel.find({ ressource: ressource._id, utilisateur: '62a9dc084dc6033c7098a69a' });
+    if (idexistant == null || idexistant == '') {
+      const jaime = new RessourceReactionModel({ _id: new mongoose.Types.ObjectId(),ressource: ressource._id, utilisateur: '62a9dc084dc6033c7098a69a'  });
+      await jaime.save();
+      res.send(jaime);
+      ressource.nb_reaction ++;
+      await ressource.save();
+      res.send(ressource);
+    } else {
+      const jenaimeplus = await RessourceReactionModel.findByIdAndDelete(idexistant);
+      res.status(200).send(jenaimeplus);
+      ressource.nb_reaction --;
+      await ressource.save();
+      res.send(ressource);
+    }
   }
-  if (!reaction) {
-    const reaction2 = new RessourceReactionModel({ _id: new mongoose.Types.ObjectId()});
-    reaction2.ressource = ressource._id;
-    reaction2.utilisateur = ressource._id;
-    await reaction2.save();
-    res.send(reaction2);
-    ressource.nb_reaction ++;
-  }
-  res.send("TEST");
 };
 
